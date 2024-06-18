@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <link rel = "stylesheet" href="/static/style.css" type = "text/css"
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Page</title>
+  
+</head>
+
+<body>
+  <header>
+    <h1>SJVirus</h1>
+    
+    <h2>
+      <div class="scrollBar">
+        <p onclick="addIP('192.168.0.13');">
+          test_1 [ ip ]
+        </p>
+        <p  onclick="addIP('192.168.0.14');">
+          test_2 [ ip ]
+        </p>
+        <p>
+          test_3 [ ip ]
+        </p>
+        <p>
+          test_4 [ ip ]
+        </p>
+        <p>
+          test_5 [ ip ]
+        </p>
+        <p>
+          test_6 [ ip ]
+        </p>
+        <p>
+          test_7 [ ip ]
+        </p>
+        <p>
+          test_8 [ ip ]
+        </p>
+        <p>
+          test_9 [ ip ]
+        </p>
+        <p>
+          test_10 [ ip ]
+        </p>
+        <p>
+          test_11 [ ip ]
+        </p>
+        <p>
+          test_12 [ ip ]
+        </p>
+        <p>
+          test_13 [ ip ]
+        </p>
+        <p>
+          test_14 [ ip ]
+        </p>
+        <p>
+          test_15 [ ip ]
+        </p>
+      </div>
+    </h2>
+
+    <ul>
+      <li><a href="#">Admin</a></li>
+      <li><a href="#">Command</a></li>
+      <li><a href="#">DDos</a></li>
+      <li><a href="#">WOL</a></li>
+      <li><a href="#">Ping</a></li>
+    </ul>
+
+    <div position="fixed" style="bottom:0px; left:100px; width:100%;">
+      <input id="input" type="text" placeholder="Input Your Command">
+      <button id="button" onclick="sendCommand();">&gt</button>
+    </div>
+  </header>
+<script>
+    var ipList = [];
+    function addIP(ip){
+      if(!ipList.includes(ip)){
+        ipList.unshift(ip);
+      }else{
+        ipList.pop(ipList.indexOf(ip));
+      }
+      console.log(ipList);
+    }
+
+    function sendCommand(){
+      var cmd = document.getElementById("input").value;
+      location.href="/s?c="+cmd+"&ip="+ipList.join(';');
+    }
+
+  function cmdAdmin(){
+    //location.href="/s?c=&ip="+ipList.join(';');
+  }
+
+  function cmdDos(){
+    location.href="/s?c=ddos&ip="+ipList.join(';');
+  }
+
+  function cmdPing(){
+    location.href="/s?c=ping&ip="+ipList.join(';');
+  }
+  </script>
+  
+</body>
+</html>
