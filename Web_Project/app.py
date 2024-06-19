@@ -102,7 +102,27 @@ def client_requests():
 
 
 # c: 수행 확인
+@app.route('/c')
+def perform_checks():
+    ip = request.args.get('ip')
+    mac = request.args.get('mac')
+    result = request.args.get('result')
+    cmd = request.args.get('cmd')
 
+    # Step 1: 해당 IP와 MAC 주소를 가진 엔트리가 데이터베이스에 있는지 확인
+    select_query = "SELECT * FROM database WHERE ip_address = ? AND mac_address = ?"
+    existing_entry = execute_sql_query(select_query, (ip, mac))
+
+    if existing_entry:
+        # Step 2: 데이터베이스에 이미 존재하는 경우 수행 확인 업데이트
+        update_query = "UPDATE database SET check_box = 'O', command_line = NULL WHERE ip_address = ? AND mac_address = ?"
+        execute_sql_query(update_query, (ip, mac))
+
+        # 결과를 화면에 띄우기 위해 jsonify를 사용하여 JSON 형식으로 반환
+        return jsonify({'message': 'Check performed successfully', 'result': result})
+
+    else:
+        return jsonify({'message': 'No entry found for the provided IP and MAC combination'})
 
 # d : 드로퍼 요청
 
